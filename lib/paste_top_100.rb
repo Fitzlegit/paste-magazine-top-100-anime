@@ -1,6 +1,2 @@
-require "Paste_top_100/version"
-
-module PasteTop100
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "paste_top_100/scraper.rb"
+require_relative "paste_top_100/cli.rb"

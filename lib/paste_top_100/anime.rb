@@ -1,9 +1,6 @@
-require 'Nokogiri'
+require 'nokogiri'
 require 'open-uri'
 require 'pry'
-
-require_relative './anime.rb'
-
 
 class PasteTop100::Anime
 
@@ -18,17 +15,6 @@ class PasteTop100::Anime
   def save
     @@all << self
   end
-
-  def get_page
-    doc = Nokogiri::HTML(open("https://www.imdb.com/list/ls062031974/"))
-    binding.pry
-  end
-
-
-
-
-
-
 
 end
 
