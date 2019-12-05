@@ -8,7 +8,15 @@ class PasteTop100::Anime
     @@all
   end
 
-  
+  def save
+    @@all << self
+  end
+
+  def get_page
+    doc = Nokogiri::HTML(open(https://www.imdb.com/list/ls062031974/))
+    binding.pry
+  end
+
 
 
 
@@ -16,3 +24,5 @@ class PasteTop100::Anime
 
 
 end
+
+Scraper.new.get_page
