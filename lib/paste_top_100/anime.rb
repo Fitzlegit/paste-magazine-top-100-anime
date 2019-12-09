@@ -1,12 +1,15 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
+class Anime
+  attr_accessor :rank, :title, :release_date, :synopsis, :director, :rating, :runtime, :genre
 
-class PasteTop100::Anime
-
-  attr_accessor :rank, :title, :release_date, :synopsis, :director, :gross_earnings, :movie_rating, :runtime, :genre
+  def rating
+    @rating ||= "N/A"
+  end
 
   @@all = [] #=> stores all movie objects into an array
+
+  def initialize
+    save
+  end
 
   def self.all
     @@all
@@ -17,5 +20,3 @@ class PasteTop100::Anime
   end
 
 end
-
-Scraper.new.get_page

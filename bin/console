@@ -11,4 +11,5 @@ require_relative "../lib/paste_top_100.rb"
 require "irb"
 #IRB.start(__FILE__)
 
-Scraper.new.make_movies
+
+Scraper.new.print_movies
