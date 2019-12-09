@@ -3,20 +3,20 @@ require 'open-uri'
 require 'pry'
 
 class Scraper
-  def get_page
+  def self.get_page
     site = "https://www.imdb.com/list/ls062031974/"
     html = open(site)
     page = Nokogiri::HTML(html)
     #binding.pry
   end
 
-  def get_movies
+  def self.get_movies
     self.get_page.css(".lister-item.mode-detail")
     #binding.pry
   end
 
-  def make_movies
-    self.get_movies.each do |movie|
+  def self.make_movies
+    self.get_movies.take(10).each do |movie|
       anime = Anime.new
       anime.rank = movie.css(".lister-item-content").css(".lister-item-header").css(".lister-item-index.unbold.text-primary").text.strip
       anime.title = movie.css(".lister-item-content").css(".lister-item-header").css("a").text.strip
