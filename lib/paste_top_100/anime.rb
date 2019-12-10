@@ -1,9 +1,6 @@
 class Anime
-  attr_accessor :rank, :title, :release_date, :synopsis, :director, :rating, :runtime, :genre
+  attr_accessor :rank, :title, :release_date, :synopsis, :director, :rating, :runtime, :genre, :link
 
-  def rating
-    @rating ||= "N/A"
-  end
 
   @@all = [] #=> stores all movie objects into an array
 

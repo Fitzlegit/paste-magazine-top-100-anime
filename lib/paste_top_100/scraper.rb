@@ -1,6 +1,3 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
 
 class Scraper
   def self.get_page
@@ -24,9 +21,17 @@ class Scraper
       anime.rating = movie.css(".lister-item-content").css(".text-muted.text-small").css(".certificate").text.strip
       anime.genre = movie.css(".lister-item-content").css(".text-muted.text-small").css(".genre").text.strip
       anime.runtime = movie.css(".lister-item-content").css(".text-muted.text-small").css(".runtime").text.strip
-      anime.synopsis = movie.css(".lister-item-content").css("p[4]").text.strip
+      anime.synopsis = movie.css(".lister-item-content").css("p")[1].text.strip
       anime.director = movie.css(".lister-item-content").css(".text-muted.text-small").css("a[1]").text.strip
+      anime.link = movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
+      binding.pry
     end
+  end
+
+  def self.scrape_fullcast(anime_obj)
+    html = open(anime_obj.url)
+    page = Nokogiri::HTML(html)
+    anime_obj
   end
 
   def print_movies
@@ -63,7 +68,7 @@ end
   end
 =end
 
-#title = page.css(".lister-item.mode-detail[3]").css(".lister-item-content").css(".lister-item-header").css("a").text
+#title = movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
 
 #rank = page.css(".lister-item.mode-detail").first.css(".lister-item-content").css(".lister-item-header").css(".lister-item-index.unbold.text-primary").text
 
@@ -76,6 +81,8 @@ end
 #runtime = page.css(".lister-item.mode-detail").first.css(".lister-item-content").css(".text-muted.text-small").css(".runtime").text
 
 
-#synopsis = page.css(".lister-item.mode-detail").first.css(".lister-item-content").css("p[4]").text
+#synopsis = movie.css(".lister-item-content").css("p")[2]
 
 #director = page.css(".lister-item.mode-detail").first.css(".lister-item-content").css(".text-muted.text-small").css("a[1]").text.strip
+
+#link = movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
