@@ -20,10 +20,30 @@ class CLI
     storyline(input)
   end
 
+  #prompts user to  go back and view more or quit the cli
+  def view_another?
+    yesno = gets.chomp.to_s
+    if yesno == "yes"
+      display_titles
+      ask_for_movie_choice
+    elsif yesno == "no"
+      puts "Thanks for using paste top anime movies CLI, come back soon!"
+    else
+      puts "please put in a valid answer of yes or no"
+      view_another?
+    end
+  end
+
+
   def storyline(input)
     anime = Anime.all[input -1]
     Scraper.scrape_storyline(anime)
+    puts "\n#{anime.title}, #{anime.release_date} | Rated: #{anime.rating} | Runtime: #{anime.runtime} | Genre: #{anime.genre} \n "
     puts anime.story
+    puts "\nDirector: #{anime.director}"
+    sleep(5)
+    puts "\nWould you like to view another selection (yes/no)"
+    view_another?
   end
 
   def valid_input?(input)
