@@ -1,11 +1,14 @@
 class CLI
+  #runs the CLI interface methods
   def run
     puts "Welcome to Paste Magazine top anime movies"
+    #calls scraper class to create movie objects
     Scraper.make_movies
     display_titles
     ask_for_movie_choice
   end
 
+  #prompts user for a movie choice
   def ask_for_movie_choice
     puts "Choose a number between 1-10 to select a movie"
     #get user input
@@ -34,7 +37,7 @@ class CLI
     end
   end
 
-
+  #method call scraper to dig one level deeper and return infomation
   def storyline(input)
     anime = Anime.all[input -1]
     Scraper.scrape_storyline(anime)
@@ -46,11 +49,13 @@ class CLI
     view_another?
   end
 
+  #checks to make sure user input is between the movie selection
   def valid_input?(input)
     input.between?(1,Anime.all.size)
     #input <= 1  &&  >= 10
   end
 
+  #prints the titles of the first 10 movies and uses :rank key to list the order
   def display_titles
     Anime.all.each do |movie|
       puts "#{movie.rank} - #{movie.title}"
