@@ -15,7 +15,8 @@ class CLI
       input = gets.chomp.to_i
     end
 
-    puts "Awesome!"
+    puts "Great pick, let's check out some more information!"
+    puts "-------------------------------------------------------->"
     storyline(input)
   end
 
@@ -33,7 +34,6 @@ class CLI
   def display_titles
     Anime.all.each do |movie|
       puts "#{movie.rank} - #{movie.title}"
-      puts "Synopsis: #{movie.synopsis}"
       puts "--------------------------------"
     end
   end
