@@ -4,7 +4,6 @@ class CLI
     Scraper.make_movies
     display_titles
     ask_for_movie_choice
-    #display info of title choice
   end
 
   def ask_for_movie_choice
@@ -15,11 +14,15 @@ class CLI
       puts "Sorry, that's not a valid choice - choose 1-10"
       input = gets.chomp.to_i
     end
+
+    puts "Awesome!"
+    storyline(input)
   end
 
-  def more_movie_info(input)
-
-
+  def storyline(input)
+    anime = Anime.all[input -1]
+    Scraper.scrape_storyline(anime)
+    puts anime.story
   end
 
   def valid_input?(input)
@@ -30,6 +33,7 @@ class CLI
   def display_titles
     Anime.all.each do |movie|
       puts "#{movie.rank} - #{movie.title}"
+      puts "Synopsis: #{movie.synopsis}"
       puts "--------------------------------"
     end
   end

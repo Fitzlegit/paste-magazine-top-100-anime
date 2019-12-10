@@ -1,4 +1,3 @@
-
 class Scraper
   def self.get_page
     site = "https://www.imdb.com/list/ls062031974/"
@@ -13,6 +12,7 @@ class Scraper
   end
 
   def self.make_movies
+    homepage = "https://www.imdb.com"
     self.get_movies.take(10).each do |movie|
       anime = Anime.new
       anime.rank = movie.css(".lister-item-content").css(".lister-item-header").css(".lister-item-index.unbold.text-primary").text.strip
@@ -23,15 +23,14 @@ class Scraper
       anime.runtime = movie.css(".lister-item-content").css(".text-muted.text-small").css(".runtime").text.strip
       anime.synopsis = movie.css(".lister-item-content").css("p")[1].text.strip
       anime.director = movie.css(".lister-item-content").css(".text-muted.text-small").css("a[1]").text.strip
-      anime.link = movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
-      binding.pry
+      anime.link = homepage + movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
     end
   end
 
-  def self.scrape_fullcast(anime_obj)
-    html = open(anime_obj.url)
+  def self.scrape_storyline(anime_obj)
+    html = open(anime_obj.link)
     page = Nokogiri::HTML(html)
-    anime_obj
+    anime_obj.story = page.css("#titleStoryLine div:nth-child(3) p span").text.strip
   end
 
   def print_movies
