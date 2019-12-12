@@ -15,6 +15,11 @@ class Scraper
     homepage = "https://www.imdb.com"
     self.get_movies.take(10).each do |movie|
       anime = Anime.new
+
+      director_name = movie.css(".lister-item-content").css(".text-muted.text-small").css("a[1]").text.strip
+      director = Director.find_or_create_by_name(director_name)
+      anime.director = director
+
       anime.rank = movie.css(".lister-item-content").css(".lister-item-header").css(".lister-item-index.unbold.text-primary").text.strip
       anime.title = movie.css(".lister-item-content").css(".lister-item-header").css("a").text.strip
       anime.release_date = movie.css(".lister-item-content").css(".lister-item-header").css(".lister-item-year.text-muted.unbold").text.strip
@@ -22,7 +27,6 @@ class Scraper
       anime.genre = movie.css(".lister-item-content").css(".text-muted.text-small").css(".genre").text.strip
       anime.runtime = movie.css(".lister-item-content").css(".text-muted.text-small").css(".runtime").text.strip
       anime.synopsis = movie.css(".lister-item-content").css("p")[1].text.strip
-      anime.director = movie.css(".lister-item-content").css(".text-muted.text-small").css("a[1]").text.strip
       anime.link = homepage + movie.css(".lister-item-content").css(".lister-item-header").css("a")[0]["href"]
     end
   end

@@ -4,6 +4,7 @@ class CLI
     puts "Welcome to Paste Magazine top anime movies"
     #calls scraper class to create movie objects
     Scraper.make_movies
+    binding.pry
     display_titles
     ask_for_movie_choice
   end
@@ -43,11 +44,13 @@ class CLI
     Scraper.scrape_storyline(anime)
     puts "\n#{anime.title}, #{anime.release_date} | Rated: #{anime.rating} | Runtime: #{anime.runtime} | Genre: #{anime.genre} \n "
     puts anime.story
-    puts "\nDirector: #{anime.director}"
+    puts "\nDirector: #{anime.director.name}"
     sleep(5)
     puts "\nWould you like to view another selection (yes/no)"
     view_another?
   end
+
+
 
   #checks to make sure user input is between the movie selection
   def valid_input?(input)
